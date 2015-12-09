@@ -1,31 +1,27 @@
 #include <iostream>
 using namespace std;
 
-
+/*输入二叉树
+      A
+	 / \
+    B   C
+   / \   \
+  D   E   F
+格式应该是ABD  E  C F  ; 
+*/
 struct bittree
 {
 	char data;
 	struct bittree *lchild;
 	struct bittree *rchild;
 };
-struct stack
-{
-
-	int top;
-};
-void initstack(stack & stacks)
-{
-	p=new
-	stacks.top=-1;
-}
 int menu()
 {
-	cout<<"2.先序递归遍历二叉树"<<endl;
-	cout<<"3.中序递归遍历二叉树"<<endl;
-	cout<<"4.后序递归遍历二叉树"<<endl;
+	cout<<"1.先序递归遍历二叉树"<<endl;
+	cout<<"2.中序递归遍历二叉树"<<endl;
+	cout<<"3.后序递归遍历二叉树"<<endl;
 	int r=0;
 	scanf("%d",&r);
-	fflush(stdin); //清除菜单栏的键盘缓存
 	return r;
 }
 struct bittree *init(struct bittree *BT)
@@ -79,9 +75,9 @@ void NFirstShow(struct bittree *BT)
 int main()
 {
 	cout<<"                                    二叉树"<<endl;
-	stack stacks;
 	bittree *BT;
 	BT=NULL;
+	cout<<"请输入二叉树"<<endl;
 	BT=init(BT);
 	while(1)
 	{
@@ -90,19 +86,14 @@ int main()
 		switch(key)
 		{
 		case 1:
-			cout<<"-------------------------------"<<endl;
-			cout<<"-------------------------------"<<endl;
+			FirstShow(BT);
+			cout<<endl;
 			break;
 		case 2:
-			cout<<"-------------------------------"<<endl;
-			FirstShow(BT);
-			cout<<endl<<"-------------------------------"<<endl;
-			break;
-		case 3:
 			MidShow(BT);
 			cout<<endl;
 			break;
-		case 4:
+		case 3:
 			TailShow(BT);
 			cout<<endl;
 			break;
