@@ -1,0 +1,46 @@
+/*
+二叉树
+1，每个节点的度小于等于2
+2，有序树
+*/
+#include <iostream>
+using namespace std;
+struct bttree
+{
+	char data;
+	struct bttree *lchild;
+	struct bttree *rchild;
+};
+struct bttree *creat(bttree *bt)
+{
+	char ch;
+	scanf("%c",&ch);
+	if(ch==' ')
+	{
+		bt=NULL;
+	}
+	else
+	{
+		bt=new bttree;
+		bt->data=ch;
+		bt->lchild=creat(bt->lchild);
+		bt->rchild=creat(bt->rchild);
+	}
+	return bt;
+}
+void PreOrder(bttree *HL)
+{
+	if(HL!=NULL)
+	{
+		cout<<HL->data;
+		PreOrder(HL->lchild);
+		PreOrder(HL->rchild);
+	}
+}
+
+void main()
+{
+	bttree *bt=NULL;
+	bt=creat(bt);
+	PreOrder(bt);
+}

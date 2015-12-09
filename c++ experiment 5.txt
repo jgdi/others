@@ -1,0 +1,32 @@
+#include <iostream>
+
+using namespace std;
+
+#define NAME_LEN 20
+class student
+{
+private:
+	char name[NAME_LEN];
+	float eng;
+	float highm;
+public:
+	void init();
+	void average();
+	void sort();
+	void encryption();
+};
+void student::init()
+{
+	while(1)
+	{
+	cout<<"please input name"<<endl;
+	cin>>
+	}
+}
+
+
+int main()
+{
+	student stu[30];
+
+}

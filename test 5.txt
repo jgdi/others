@@ -1,0 +1,97 @@
+#include <iostream>
+using namespace std;
+
+#define NAME_LEN 20
+class student
+{
+private:
+	char name[NAME_LEN];
+	float eng;
+	float highm;
+	int num;
+public:
+	int init(student stu [30]);
+	void average();
+	void sort(student stu [30]);
+	void encryption();
+	void output(student stu[30],int number);
+};
+void student::output(student stu [30],int number)
+{
+	cout<<"name"<<'\t'<<"Eng"<<'\t'<<"High"<<endl;
+	for(int i=0;i<number;i++)
+	{
+		cout<<stu[i].name<<'\t';
+		cout<<stu[i].eng<<'\t';
+		cout<<stu[i].highm<<'\t';
+		cout<<endl;
+	}
+}
+void student::sort(student stu [30])
+{
+	char namee[NAME_LEN];
+	float enge;
+	float highme;
+	cout<<"Please choose you sort way"<<endl;
+	cout<<"(0)English  (1)Highmath"<<endl;
+	int k=0;
+	cin>>k;
+	if(k==0)
+	{
+		for(int i=0;i<30;i++)
+		{
+			for(int j=0;j<30-i-1;j++)
+			{
+				if(stu[j].eng>stu[j+1].eng)
+				{
+					strcpy(namee,stu[j].name);
+					strcpy(stu[j].name,stu[j+1].name);
+					strcpy(stu[j+1].name,namee);
+					enge=stu[j].eng;
+					stu[j].eng=stu[j+1].eng;
+					stu[j+1].eng=enge;
+					highme=stu[j].highm;
+					stu[j].highm=stu[j+1].highm;
+					stu[j+1].highm=highme;
+				}
+			}
+		}
+	}
+	else if(k==1)
+	{
+
+	}
+	else
+	{
+		cout<<"Please check your input"<<endl;
+	}
+}
+int student::init(student stu [30])
+{
+	int i=0,k=0,num=0;
+	while(1)
+	{
+		cout<<"please input name"<<endl;
+		cin>>stu[i].name;
+		cout<<"please input English Score"<<endl;
+		cin>>stu[i].eng;
+		cout<<"Please input Highmath Score"<<endl;
+		cin>>stu[i].highm;
+		++num;
+		cout<<"Please choose your next step"<<endl;
+		cout<<"(0)break   (other number)Go on"<<endl;
+		cin>>k;
+		return num;
+		if(k==0)
+			break;
+	}
+}
+int main()
+{
+	int number=0;
+	student stu[30];
+	stu[30].init(stu);
+	number=stu[30].init(stu);
+	stu[30].output(stu,number);
+	system("pause");
+}

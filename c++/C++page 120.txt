@@ -1,0 +1,51 @@
+#include <iostream>
+
+using namespace std;
+
+class Student
+{
+private:
+	int num;
+	int score;
+public:
+	void init(Student * &node);
+	void max1(Student * &node);
+};
+
+int main()
+{
+	Student s[5];
+	Student *node;
+	node=&s[0];
+	s[5].init(node);
+	node=&s[0];
+	s[5].max1(node);
+}
+
+void Student::init(Student * &node)
+{
+	int number=0;
+	for(int i=0;i<5;i++)
+	{
+		cout<<"请输入第"<<++number<<"学生的学号   分数"<<endl;
+		cin>>node->num;
+		cin>>node->score;
+		node++;
+	}
+}
+void Student::max1(Student * &node)
+{
+	int max2=0;
+	Student *j;
+	for(int i=0;i<5;i++)
+	{
+		if (node->score>max2)
+		{
+			max2=node->score;
+			j=node;
+		}
+		node++;
+	}
+	cout<<"最大分数为"<<max2;
+	cout<<"其学号为"<<j->num;
+}

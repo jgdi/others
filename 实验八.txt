@@ -1,0 +1,111 @@
+#include <iostream>
+using namespace std;
+
+
+struct bittree
+{
+	char data;
+	struct bittree *lchild;
+	struct bittree *rchild;
+};
+struct stack
+{
+
+	int top;
+};
+void initstack(stack & stacks)
+{
+	p=new
+	stacks.top=-1;
+}
+int menu()
+{
+	cout<<"2.ÏÈÐòµÝ¹é±éÀú¶þ²æÊ÷"<<endl;
+	cout<<"3.ÖÐÐòµÝ¹é±éÀú¶þ²æÊ÷"<<endl;
+	cout<<"4.ºóÐòµÝ¹é±éÀú¶þ²æÊ÷"<<endl;
+	int r=0;
+	scanf("%d",&r);
+	fflush(stdin); //Çå³ý²Ëµ¥À¸µÄ¼üÅÌ»º´æ
+	return r;
+}
+struct bittree *init(struct bittree *BT)
+{
+	char ch;
+	scanf("%c",&ch);
+	if(ch==' ')
+	{
+		BT=NULL;
+	}
+	else
+	{
+		BT=new bittree;
+		BT->data=ch;
+		BT->lchild=init(BT->lchild);
+		BT->rchild=init(BT->rchild);
+	}
+	return BT;
+}
+void FirstShow(struct bittree *BT)
+{
+	if(BT!=NULL)
+	{
+		printf("%c",BT->data);
+		FirstShow(BT->lchild);
+		FirstShow(BT->rchild);
+	}
+}
+void MidShow(struct bittree *BT)
+{
+	if(BT!=NULL)
+	{
+		MidShow(BT->lchild);
+		printf("%c",BT->data);
+		MidShow(BT->rchild);
+	}
+}
+void TailShow(struct bittree *BT)
+{
+	if(BT!=NULL)
+	{
+		TailShow(BT->lchild);
+		TailShow(BT->rchild);
+		printf("%c",BT->data);
+	}
+}
+void NFirstShow(struct bittree *BT)
+{
+
+}
+int main()
+{
+	cout<<"                                    ¶þ²æÊ÷"<<endl;
+	stack stacks;
+	bittree *BT;
+	BT=NULL;
+	BT=init(BT);
+	while(1)
+	{
+		int key=0;
+		key=menu();
+		switch(key)
+		{
+		case 1:
+			cout<<"-------------------------------"<<endl;
+			cout<<"-------------------------------"<<endl;
+			break;
+		case 2:
+			cout<<"-------------------------------"<<endl;
+			FirstShow(BT);
+			cout<<endl<<"-------------------------------"<<endl;
+			break;
+		case 3:
+			MidShow(BT);
+			cout<<endl;
+			break;
+		case 4:
+			TailShow(BT);
+			cout<<endl;
+			break;
+		}
+	}
+}

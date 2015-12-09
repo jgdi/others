@@ -1,0 +1,47 @@
+#include <iostream>
+using namespace std;
+
+#define STACK_MAX 20
+
+struct OPDN
+{
+	OPDN *p;
+	int OPDN_TOP;
+}
+struct OPTR
+{
+	OPTR *q;
+	int OPTR_TOP;
+}
+void init(OPDN & a,OPTR & b)
+{
+	a.p=new OPDN [STACK_MAX];
+	a.OPDN_TOP=0;
+	b.q=new OPTR [STACK_MAX];
+	b.OPTR_TOP=0;
+}
+void push()
+{}
+char precede()
+{}
+void pop()
+{}
+char gettop(OPTR &b)
+{
+
+}
+int solution(char s[])
+{
+	char c;
+	int i=0;
+	c=s[i];
+	while(c!='#'||gettop(OPTR)!='#')
+	{
+
+	}
+}
+void main()
+{
+	OPDN a;OPTR b;
+	init(a,b);
+}
