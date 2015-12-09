@@ -1,0 +1,64 @@
+//Á´Õ»
+#include <iostream>
+using namespace std;
+
+struct stack
+{
+	int data;
+	stack *next;
+};
+void stacks(stack * &top)
+{
+	top==NULL;
+}
+void push(stack * &top,int e)
+{
+	stack *p;
+	if(top==NULL)
+	{
+		p=new stack;
+		p->data=e;
+		p->next=NULL;
+		top=p;
+	}
+	else
+	{
+		p=new stack;
+		p->data=e;
+		p->next=top;
+		top=p;
+	}
+}
+int pop(stack * & top)
+{
+	int temp;
+	stack *p;
+	if(top==NULL)
+	{
+		cout<<"¶ÑÕ»Îª¿Õ"<<endl;
+	}
+	else
+	{
+		temp=top->data;
+		p=top;
+		top=top->next;
+		free(p);
+		return temp;
+	}
+}
+void main()
+{
+	int key;
+	stack *top;
+	stacks(top);
+	push(top,10);
+	key=pop(top);
+	cout<<key<<endl;
+	system("pause");
+}
+
+
+
+
+
+

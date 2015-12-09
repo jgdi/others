@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+#define MAX_SIZE 100
+struct L
+{
+	L *base;
+	int front;
+	int rear;
+}
+void init(L &List)
+{
+	List.base=new L[MAX_SIZE];
+	List.front=List.rear=0;
+}
+int Length(L & List)
+{
+	return(List.rear-List.front+MAX_SIZE)%MAX_SIZE;
+}
+int in(L &List,int e)
+{
+
+}

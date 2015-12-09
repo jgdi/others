@@ -1,0 +1,103 @@
+#include <iostream>
+
+using namespace std;
+struct List
+{
+	int data;
+	struct List *next;
+};
+
+void init(List * &head)
+{
+	List *p;
+	p=new List;
+	p->next=NULL;
+	head=p;
+}
+void insert(List * &head)
+{
+	List *p1,*q;
+	q=head;
+	while(1)
+	{
+		p1=new List;
+		cout<<"请输入顺序排列的数据"<<endl;
+		cin>>p1->data;
+		q->next=p1;
+		p1->next=NULL;
+		q=q->next;
+		cout<<"-------------------------------------"<<endl;
+		cout<<"（0）退出（其他任意数字键）继续输入"<<endl;
+		int a=0;
+		cin>>a;
+		cout<<"-------------------------------------"<<endl;
+		 if(0==a)
+			 break;
+		 
+	}
+}
+void insert1(List * &head)
+{
+	List *b,*q1;
+	b=head->next;
+	List *p2;
+	p2=new List;
+	cout<<"请输入要插入的数"<<endl;
+	cin>>p2->data;
+	while(b->next->data<=p2->data)
+		b=b->next;
+	q1=b->next;
+	b->next=p2;
+	p2->next=q1;
+}
+void display(List * &head)
+{
+	List *d;
+	d=head->next;
+	cout<<"表中数据如下:"<<endl;
+	do
+	{
+		cout<<d->data<<"   ";
+		d=d->next;
+	}while(d!=NULL);
+	cout<<endl;
+}
+void delete1(List *head)
+{
+	List *d;
+	int de=0;
+	cout<<"请输入要删除的数"<<endl;
+	cin>>de;
+	d=head;
+	if(de!=d->next->data)
+		d=d->next;
+	d->next=d->next->next;
+}
+int findmax(List * &head)
+{
+	List *f;
+	f=head->next;
+	int max=0;
+	max=f->data;
+	do
+	{
+		if(f->data>max)
+			max=f->data;
+		f=f->next;
+	}while(f!=NULL);
+	return max;
+}
+void main()
+{
+	List *head;
+	init(head);
+	insert(head);
+	display(head);
+	insert1(head);
+	display(head);
+	delete1(head);
+	display(head);
+	int max1=0;
+	max1=findmax(head);
+	cout<<"最大值是:"<<max1;
+}

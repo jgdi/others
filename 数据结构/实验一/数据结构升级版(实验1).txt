@@ -1,0 +1,112 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <malloc.h>
+
+typedef int Elemtype;
+#define maxsize 100
+#define add 10
+
+typedef struct List
+{
+	Elemtype *list;
+	int size;
+	int listsize;
+};
+void init(List &L)
+{
+	L.list=(Elemtype*)malloc(maxsize*sizeof(Elemtype));
+	L.listsize=maxsize;
+	L.size=5;
+	printf("请输入升序排列的5个的数据\n");
+	for(int k=0;k<L.size;k++)
+	{
+		scanf("%d",&L.list[k]);
+	}
+}
+void display(List &L)
+{
+	for(int i=0;i<L.size;i++)
+	{
+		printf(" %d",L.list[i]);
+	}
+	printf("\n");
+}
+int menu()
+{
+	printf("请输入你的操作\n");
+	printf("1.插入指定数据到原表并且保持原表有序\n");
+	printf("2.删除指定内容的数据\n");
+	printf("3.打印表中的数据\n");
+	int a=0;
+	scanf("%d",&a);
+	return a;
+}
+int insert(List &L,int d)
+{
+	int i=0;
+	for(i=0;i<L.size;i++)
+	{
+		if(L.list[i]>d)
+		{
+			for(int j=L.size;j>=i;j--)
+			{
+				L.list[j]=L.list[j-1];
+			}
+			L.list[i]=d;
+			break;
+		}
+	}
+	if(i==L.size)
+	{
+		L.list[i]=d;
+	}
+	L.size++;
+	return 0;
+}
+int delete1(List &L,int k)
+{
+	for(int b=0;b<L.size;b++)
+	{
+		if(k==L.list[b])
+		{
+			for(int j=b;b<L.size;b++)
+			{
+				L.list[b]=L.list[b+1];
+			}
+		}
+	}
+	L.size--;
+	return 0;
+}
+void main()
+{
+	List L;
+	init(L);
+	int j;
+	while(1)
+	{
+		j=menu();
+		if(j==1)
+		{
+			int i;
+			printf("请输入要插入的数字:\n");
+			scanf("%d",&i);
+			insert(L,i);
+			printf("插入结果如下：\n");
+			display(L);
+		}
+		else if(j==2)
+		{
+			int k;
+			printf("请输入要删除的数:\n");
+			scanf("%d",&k);
+			delete1(L,k);
+			printf("删除结果如下:\n");
+			display(L);
+		}
+		else
+		{display(L);}
+	}
+
+}

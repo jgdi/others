@@ -1,0 +1,121 @@
+#include <iostream>
+using namespace std;
+
+#define MAX_SIZE 20
+struct triple
+{
+	int i,j;
+	int e;
+};
+struct smatrix
+{
+	triple data[MAX_SIZE+1];
+	int mu,nu,tu;//矩阵的行，列，数据个数
+};
+void init(smatrix & s)
+{
+	cout<<"请输入非零元素的个数"<<endl;
+	cin>>s.tu;
+	cout<<"请输入矩阵的行数"<<endl;
+	cin>>s.mu;
+	cout<<"请输入矩阵的列数"<<endl;
+	cin>>s.nu;
+	cout<<"-----------------------------------"<<endl;
+	for(int k=1;k<=s.tu;k++)
+	{
+		cout<<"请分别输入数据的行数 列数 数据"<<endl;
+		cin>>s.data[k].i;
+		cin>>s.data[k].j;
+		cin>>s.data[k].e;
+	}
+	///*cout<<"三元组表如下"<<endl;
+	//for(int g=1;g<=s.tu;g++)
+	//{
+	//	cout<<s.data[g].i<<" ";
+	//	cout<<s.data[g].j<<" ";
+	//	cout<<s.data[g].e<<" ";
+	//	cout<<endl;
+	//}*/
+}
+void tran(smatrix & s,smatrix & z)//按列序转置
+{
+	z.mu=s.mu;
+	z.nu=s.nu;
+	z.tu=s.tu;
+	int da = 1;
+	for(int col=1;col<=s.nu;col++)
+	{
+		for(int f=1;f<=s.tu;f++)
+		{
+			if(s.data[f].j==col)
+			{
+				z.data[da].i=s.data[f].j;
+				z.data[da].j=s.data[f].i;
+				z.data[da].e=s.data[f].e;
+				da++;
+			}
+		}
+	}
+	/*cout<<"转置三元组表格式如下"<<endl;
+	for(int g=1;g<=z.tu;g++)
+	{
+		cout<<z.data[g].i<<" ";
+		cout<<z.data[g].j<<" ";
+		cout<<z.data[g].e<<" ";
+		cout<<endl;
+	}*/
+}
+//void trans(smatrix & s,smatrix & g)
+//{
+	//int
+//}
+//按行转置如下
+/*
+按行序转置 
+数据预测
+pot[i]:记录第i列第一个非零元素的位置
+num[i]:记录每列的非零元素的个数
+pot[0]=0;
+pot[1]=pot[0]+num[0]
+1.确定num
+2.直接填充
+*/
+template <typename T>
+T outt(T a)
+{
+	int p=1;
+	cout<<"矩阵如下"<<endl;
+	for(int k=1;k<=a.mu;k++)
+	{
+		cout<<"[";
+		for(int l=1;l<=a.nu;l++)
+		{
+			if(a.data[p].i==k&&a.data[p].j==l)
+			{
+				cout<<a.data[p].e<<" ";
+				p++;
+			}
+			else
+			{
+				cout<<"0 ";
+			}
+		}
+		cout<<"]";
+		cout<<endl;
+	}
+	return a;
+}
+void main()
+{
+	smatrix s,z;
+	init(s);
+	outt(s);
+	tran(s,z);
+	cout<<"转置"<<endl;
+	outt(z);
+	system("pause");
+}
+
+
+
+

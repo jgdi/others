@@ -1,0 +1,102 @@
+//#include <iostream>
+//using namespace std;
+//
+//#define MAX_SIZE 100
+//struct L
+//{
+//	L *base;
+//	int front;
+//	int rear;
+//}
+//void init(L &List)
+//{
+//	List.base=new L[MAX_SIZE];
+//	List.front=List.rear=0;
+//}
+//int Length(L & List)
+//{
+//	return(List.rear-List.front+MAX_SIZE)%MAX_SIZE;
+//}
+//int in(L &List,int e)
+//{
+//
+//}
+
+//括号匹配检查算法
+//1.提取每个字符s【i】
+//当s【i】为左括号入栈
+//当s【i】为括号外字符继续读取其他字符。
+//当s【i】为右括号出栈(栈为空，栈不空)
+//2.判断栈是否为空
+//判断出括号是否为空
+#include <iostream>
+#include <string>
+using namespace std;
+
+
+#define MAX_SIZE 100
+struct stack
+{
+	char *p;
+	int top;
+};
+void init(stack & stacks)
+{
+	stacks.p=new char[MAX_SIZE];
+	stacks.top=0;
+}
+bool check(stack &stacks,char a[MAX_SIZE])
+{
+	for(int i=0;a[i]!='\0';i++)
+	{
+		if(a[i]=='(')
+		{
+			stacks.p[stacks.top]='(';
+			stacks.top++;
+		}
+		else if(a[i]==')')
+		{
+			stacks.top--;
+		}
+	}
+	if(stacks.top==0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+void main()
+{
+	stack stacks;
+	init(stacks);
+	int i=0;
+	char  c[MAX_SIZE];
+	cout<<"please input"<<endl;
+	for(i;;i++)
+	{
+		c[i]=getchar();
+		if(c[i]=='\n')
+			break;
+	}
+	c[i]='\0';
+	cout<<check(stacks,c);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

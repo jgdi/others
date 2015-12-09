@@ -1,0 +1,78 @@
+#include <iostream>
+using namespace std;
+
+#define MAX_SIZE 20
+struct triple
+{
+	int i,j;
+	int e;
+};
+struct smatrix
+{
+	triple data[MAX_SIZE];
+	int mu,nu,tu;
+};
+void init(smatrix & s)
+{
+	cout<<"请输入非零元素的个数"<<endl;
+	cin>>s.tu;
+	cout<<"请输入矩阵的行数"<<endl;
+	cin>>s.mu;
+	cout<<"请输入矩阵的列数"<<endl;
+	cin>>s.nu;
+	cout<<"-----------------------------------"<<endl;
+	for(int k=0;k<s.tu;k++)
+	{
+		cout<<"请分别输入数据的行数 列数 数据"<<endl;
+		cin>>s.data[k].i;
+		cin>>s.data[k].j;
+		cin>>s.data[k].e;
+	}
+}
+void tran(smatrix & s,smatrix & z)
+{
+	z.mu=s.mu;
+	z.nu=s.nu;
+	z.tu=s.tu;
+	for(int col=1;col<=s.nu;col++)
+	{
+		for(int row=0;row<=s.tu;row++)
+		{  
+			if(s[].)
+		}
+	}
+}
+template <typename T>
+T outt(T a)
+{
+	int p=0;
+	cout<<"矩阵如下"<<endl;
+	for(int k=1;k<=a.mu;k++)
+	{
+		for(int l=1;l<=a.nu;l++)
+		{
+			if(a.data[p].i==k&&a.data[p].j==l)
+			{
+				cout<<a.data[p].e<<" ";
+				p++;
+			}
+			else
+			{
+				cout<<"0 ";
+			}
+		}
+		cout<<endl;
+	}
+	return a;
+}
+void main()
+{
+	smatrix s,z;
+	init(s);
+	outt(s);
+	system("pause");
+}
+
+
+
+

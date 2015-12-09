@@ -1,0 +1,20 @@
+#include"stdio.h"
+#include<stdlib.h>
+int H(int n)
+{
+	int i, count = 1;
+	for (i = 0; i < n; i++)
+	{
+		count = (count + 1)*(count + 1);
+	}
+	return count;
+}
+void main()
+{
+	int n, count;
+	printf("请输入几天后还剩一个桃子\n");
+	scanf_s("%d", &n);
+	count = H(n);
+	printf("第%d天后还剩一个桃子的情况下第一天的桃子数为%d个\n", n, count);
+	system("pause");
+}

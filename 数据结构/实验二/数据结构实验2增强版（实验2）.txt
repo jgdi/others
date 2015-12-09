@@ -1,0 +1,148 @@
+#include <iostream>
+
+using namespace std;
+struct List
+{
+	int data;
+	struct List *next;
+};
+
+void init(List * &head)
+{
+	List *p;
+	p=new List;
+	p->next=NULL;
+	head=p;
+}
+void insert(List * &head)
+{
+	List *p1,*q;
+	q=head;
+	while(1)
+	{
+		p1=new List;
+		cout<<"请输入数据"<<endl;
+		cin>>p1->data;
+		q->next=p1;
+		p1->next=NULL;
+		q=q->next;
+		cout<<"-------------------------------------"<<endl;
+		cout<<"（0）退出（其他任意数字键）继续输入"<<endl;
+		int a=0;
+		cin>>a;
+		cout<<"-------------------------------------"<<endl;
+		 if(0==a)
+			 break;
+		 
+	}
+}
+void insert1(List * &head)
+{
+	List *b,*q1;
+	b=head->next;
+	List *p2,*tail;
+	p2=new List;
+	tail=head->next;
+	while (tail->next!=NULL)
+		tail=tail->next;
+	cout<<"请输入要插入的数"<<endl;
+	cin>>p2->data;
+	if(p2->data<head->next->data)//数据插入到表头
+	{
+		q1=head->next;
+		head->next=p2;
+		p2->next=q1;
+	}
+	else if (p2->data<tail->data)//数据插入到表中
+	{
+		while(b->next->data<=p2->data)
+			b=b->next;
+		q1=b->next;
+		b->next=p2;
+		p2->next=q1;
+	}
+	else if(p2->data>tail->data)
+	{
+		tail->next=p2;
+		p2->next=NULL;
+		tail=p2;
+	}
+}
+void display(List * &head)
+{
+	List *d;
+	d=head->next;
+	cout<<"表中数据如下:"<<endl;
+	do
+	{
+		cout<<d->data<<"   ";
+		d=d->next;
+	}while(d!=NULL);
+	cout<<endl;
+}
+void delete1(List *head)
+{
+	List *d;
+	int de=0;
+	cout<<"请输入要删除的数"<<endl;
+	cin>>de;
+	d=head;
+	if(de!=d->next->data)
+		d=d->next;
+	d->next=d->next->next;
+}
+int findmax(List * &head)
+{
+	List *f;
+	f=head->next;
+	int max=0;
+	max=f->data;
+	do
+	{
+		if(f->data>max)
+			max=f->data;
+		f=f->next;
+	}while(f!=NULL);
+	return max;
+}
+void sort(List * &head)
+{
+	cout<<"按数据从小到大排序如下"<<endl;
+	List*i,*j,*k;
+	i=head->next;
+	j=i->next;
+	k=head->next;
+	int temp;
+	for(;k->next!=NULL;k++)
+	{
+		i=head->next;
+		j=i->next;
+		do
+		{
+			if(i->data>j->data)
+			{
+				temp=i->data;
+				i->data=j->data;
+				j->data=temp;
+				}
+			i=j;
+			j=j->next;
+		}while(i->next!=NULL);
+	}
+	display(head);
+}
+void main()
+{
+	List *head;
+	init(head);
+	insert(head);
+	display(head);
+	sort(head);
+	insert1(head);
+	display(head);
+	delete1(head);
+	display(head);
+	int max1=0;
+	max1=findmax(head);
+	cout<<"最大值是:"<<max1;
+}

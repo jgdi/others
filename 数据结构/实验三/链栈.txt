@@ -1,0 +1,49 @@
+﻿//链栈
+struct stack
+{
+	elemtype data;
+	stack *next;
+};
+init stack(stack * &top)
+{
+	top==NULL;
+}
+void push(stack * &top,elemtype e)
+{
+	stack *p;
+	if(top==NULL)
+	{
+		p=new stack;
+		p->data=e;
+		p->next=NULL;
+		top->p;
+	}
+	else
+	{
+		p=new stack;
+		p->data=e;
+		p->next=top;
+		top=p;
+	}
+}
+stack pop(stack & s)
+{
+	if(top==NULL)
+	{
+
+	}
+	else
+	{
+		temp=top->data;
+		p=top;
+		top=top->next;
+		free(p);
+		return temp;
+	}
+}
+
+
+
+
+
+

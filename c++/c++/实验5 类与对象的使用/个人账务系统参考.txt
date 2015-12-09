@@ -1,0 +1,638 @@
+ofstream fout;
+ account stu[N];
+ int choice,i,a,b,c,A,B,C;
+ char name1[20];
+    long double mon;
+ int n;                                                                  //帐务数
+ cout<<"             ********************************************"<<endl;
+    cout<<"             ********************************************"<<endl;
+ cout<<"             ********   欢迎进入个人帐务管理系统   ******"<<endl;
+    cout<<"             ********************************************"<<endl;
+ cout<<"             ********************************************"<<endl;
+ menu();                                                                 //调用输出菜单的函数
+ while(1)
+ {
+  cout<<("请选择:");
+  cin>>choice;
+  switch (choice)
+  {
+  case 1: 
+       cout<<"输入你想录入帐务的数目："<<endl; 
+    cin>>n;
+    input(stu,n);  //录入n个帐务信息
+    menu();
+    break;     
+  case 2: 
+       cout<<"根据什么排序："<<endl;
+       cout<<"1. 金额"<<endl<<"2. 日期"<<endl<<"3. 名称"<<endl;
+    cin>>i;
+    if(i==1)
+    { sort_suma(stu,n);              //按金额排序
+    }
+    else if(i==2)
+                {                               //按日期排序
+     sort_sumb(stu,n);
+    }
+    else if(i==3)
+                {                               //按名称排序
+     sort_sumc(stu,n);
+    }
+    menu(); 
+    break;
+  case 3:
+           cout<<"请选择查找方式:"<<endl;
+    cout<<"1.按序号"<<endl;
+    cout<<"2.按日期"<<endl;
+    cout<<"3.按名称"<<endl;
+    cout<<"4.按金额"<<endl;
+    cin>>i;
+          switch (i)
+    {   
+    case 1:
+            cout<<"请输入你要查找的序号："<<endl; 
+               cin>>i;
+               seek_a(stu,i,n);    //按序号查找帐务信息
+               menu(); 
+               break;
+    case 2:
+                  cout<<"请输入年 月 日："<<endl; 
+               cin>>a>>b>>c;
+                  seek_b(stu,a,b,c,n);    //按日期查找帐务信息
+                  menu(); 
+               break;
+          case 3: 
+                  cout<<"请输入你要查找的名称："<<endl; 
+                  cin>>name1;
+               seek_c(stu,name1,n);    //按名称查找帐务信息
+                  menu(); 
+               break;
+          case 4: 
+                  cout<<"请选择收支类型："<<endl<<"1. 收入"<<endl<<"2. 支出"<<endl;
+               cin>>i;
+                  cout<<"请输入你要查找的金额："<<endl;  
+               cin>>mon;
+               seek_d(stu,mon,i,n);    //按金额查找帐务信息
+               menu(); 
+               break;
+    default: 
+                  cout<<"error input! 请重输! "<<endl;
+         break;
+    }
+    break;
+         
+  case 4: 
+          cout<<"根据什么查找删除信息："<<endl;
+                cout<<"1. 序号"<<endl<<"2. 日期"<<endl<<"3. 名称"<<endl;
+             cin>>i;
+                if(i==1)
+    {cout<<"请输入你要删除的序号："<<endl;
+          cin>>i;
+             n=dela(stu,i,n);//按序号删除帐务信息
+    }
+    else if(i==2)
+                {cout<<"请输入年 月 日："<<endl; 
+    cin>>a>>b>>c;
+    n=delb(stu,a,b,c,n); //按日期删除帐务信息
+    }
+    else if(i==3)
+                {cout<<"请输入名称："<<endl; 
+    cin>>name1;
+    n=delc(stu,name1,n); //按名称删除帐务信息
+    }       
+    menu();
+    break;
+  case 5: 
+       cout<<"请输入你要新增帐务的序号："<<endl; 
+    cin>>i;
+    n=ins(stu,i,n);       //按序号新增帐务信息
+    menu();
+    break;
+  case 6:
+       cout<<"根据什么查找修改信息："<<endl;
+       cout<<"1. 序号"<<endl<<"2. 日期"<<endl<<"3. 名称"<<endl;
+    cin>>i;
+    if(i==1)
+    {cout<<"请输入你要修改的序号："<<endl;
+    cin>>i;
+    mod1(stu,i,n);                               //按序号修改帐务信息
+    }
+    else if(i==2)
+                {cout<<"请输入年 月 日："<<endl; 
+    cin>>a>>b>>c;
+    i=seek_b(stu,a,b,c,n);                        //按日期修改帐务信息
+    mod1(stu,i,n);
+    }
+    else if(i==3)
+                {cout<<"请输入名称："<<endl; 
+    cin>>name1;
+    i=seek_c(stu,name1,n);                        //按名称修改帐务信息
+    mod1(stu,i,n);
+    }             
+    menu();
+    break;
+  case 7: print(stu,n);    //输出帐务信息
+    menu();
+    break;
+  case 8:cout<<"请输入时间段："<<endl<<"从"<<endl; // 按日期打印帐务统计信息
+       cin>>A>>B>>C;              
+    cout<<endl<<"到"<<endl;
+    cin>>a>>b>>c;
+                sort_sumb(stu,n);
+       printall(stu,A,B,C,a,b,c,n);
+       menu();
+    break;
+  case 9:
+       getin(stu,n);
+    menu();
+    break;
+  case 10:
+       cout<<"请输入文件名："<<endl;
+    cin>>name1;
+       n=ReadBiFile(name1, stu);
+    menu();
+    break;
+  case 11:
+       exit(0); 
+       break;
+  default: 
+   cout<<"error input! 请重输! "<<endl;
+   break;
+
+  }
+ }
+}
+void menu()
+{
+ cout<<"            1.  请录入你想要录入的帐务信息  \n";
+ cout<<"            2.  对您的帐本排序 \n";
+ cout<<"            3.  查找你想要查找帐务信息 \n";
+ cout<<"            4.  删除你已有帐务信息\n";
+ cout<<"            5.  新增您的帐务信息\n";
+ cout<<"            6.  修改您的帐务信息\n";
+ cout<<"            7.  输出您的帐务信息\n";
+ cout<<"            8.  对您的帐务进行统计\n";
+ cout<<"            9.  保存你已输入帐务数据\n";
+        cout<<"            10. 读取您已有帐务数据\n";
+    cout<<"            11. 退出\n";
+}
+//输入帐务明细
+void add(account cd[],int no, int n)
+{
+   do{
+   cout<<"请按 “年 月 日”的方式输入日期："<<endl;
+   cin>>cd[no].time.year>>cd[no].time.month>>cd[no].time.day;
+   }while(cd[no].time.year<0 || cd[no].time.year>2008 || cd[no].time.month>12 ||cd[no].time.month<0||cd[no].time.day<0 || cd[no].time.day>31);
+   cd[no].all_time=cd[no].time.year*10000 + cd[no].time.month*100 + cd[no].time.day;
+   cout<<"请输入收支项名称："<<endl;
+   cin>>cd[no].name;
+   do{
+   cout<<"请选择收支类型："<<endl<<"1. 收入"<<endl<<"2. 支出"<<endl;
+   cin>>cd[no].type;
+   }while(cd[no].type!=1 && cd[no].type!=2);
+   
+   if(cd[no].type==1)
+    {cout<<"请输入收入金额："<<endl;
+        cin>>cd[no].money;}
+   else
+    {cout<<"请输入支出金额："<<endl;
+        cin>>cd[no].money;}
+   cout<<"是否输入备注(y/n)"<<endl;
+   cin>>cd[no].a;
+   if (cd[no].a=='y')
+   {
+    cout<<"请输入："<<endl;
+       cin>>cd[no].remarks;
+   }
+}
+//输入n个帐务信息
+void input(account cd[],int n)  
+{ int i;
+  for(i=0;i<n;i++)
+  {
+   add(cd,i,n);
+  }
+   
+}
+//n个帐务按总收入排序
+void sort_suma(account cd[],int n)
+{
+ int i,j;
+ account temp;
+ for(i=0;i<n;i++)
+ {
+  if(cd[i].type==2)
+  cd[i].money=-cd[i].money;
+ }
+ for(i=0;i<n;i++)
+ {
+  for(j=i;j<n;j++)
+  {
+   if(cd[i].money<cd[j].money)
+   { temp=cd[i];
+       cd[i]=cd[j];
+    cd[j]=temp;
+   }
+  }
+ }
+}
+//n次帐务按日期排序
+void sort_sumb(account cd[], int n)
+{
+    int i,j;
+ account temp;
+ for(i=0;i<n;i++)
+ {
+  for(j=i;j<n;j++)
+  {
+   if(cd[i].all_time<cd[j].all_time)
+   { temp=cd[i];
+       cd[i]=cd[j];
+    cd[j]=temp;
+   }
+  }
+ }
+}
+ //n次帐务按名称排序
+void sort_sumc(account cd[], int n) 
+{
+ int i,j,p=0;
+ account temp;
+ for(i=0;i<n;i++)
+ {
+  for(j=i;j<n;j++)
+  {
+   if(strcmp(cd[i].name,cd[j].name)<0)
+   { temp=cd[i];
+           cd[i]=cd[j];
+    cd[j]=temp;
+   }
+  }
+ }
+}
+//按序号查找帐务信息
+void seek_a(account cd[],int i, int n)
+{
+ int sign=0;
+ cout<<"序号"<<setw(5)<<"年"<<setw(10)<<"月"<<setw(8)<<"日"<<setw(8)<<"名称"<<setw(24)<<"收入（正）/支出（负)"<<setw(6)<<"备注"<<endl;
+ if(i>=0 && i<n)
+ { if(cd[i].type==1)
+  { if(cd[i].a=='y')
+   {
+       cout<<i<<setw(10)<<cd[i].time.year<<setw(8)<<cd[i].time.month<<setw(8)<<cd[i].time.day<<setw(8)<<cd[i].name<<setw(8)<<fabs(cd[i].money)<<setw(22)<<cd[i].remarks<<endl;
+   }
+         else
+   {
+   cout<<i<<setw(10)<<cd[i].time.year<<setw(8)<<cd[i].time.month<<setw(8)<<cd[i].time.day<<setw(8)<<cd[i].name<<setw(8)<<fabs(cd[i].money)<<endl;
+   }
+  }
+  else
+  {
+   if(cd[i].a=='y')
+   {
+       cout<<i<<setw(10)<<cd[i].time.year<<setw(8)<<cd[i].time.month<<setw(8)<<cd[i].time.day<<setw(8)<<cd[i].name<<"       -"<<fabs(cd[i].money)<<setw(22)<<cd[i].remarks<<endl;
+   }
+         else
+   {
+   cout<<i<<setw(10)<<cd[i].time.year<<setw(8)<<cd[i].time.month<<setw(8)<<cd[i].time.day<<setw(8)<<cd[i].name<<"       -"<<fabs(cd[i].money)<<endl;
+   }
+  }
+  sign++;
+ }
+ if(sign==0)
+ {
+  cout<<"无此序号"<<endl;
+ }
+
+}
+//按日期查找帐务信息
+int seek_b(account cd[],int x,int y,int z, int n)
+{
+ int array[100]={0};
+ int i,j=0;
+ int sign=0;
+ cout<<"序号"<<setw(5)<<"年"<<setw(10)<<"月"<<setw(8)<<"日"<<setw(8)<<"名称"<<setw(24)<<"收入（正）/支出（负)"<<setw(6)<<"备注"<<endl;
+ for(i=0;i<n;i++)
+ {
+  if(cd[i].time.year==x && cd[i].time.month==y && cd[i].time.day==z)
+  {
+   if(cd[i].type==1)
+  { if(cd[i].a=='y')
+   {
+        cout<<i<<setw(10)<<cd[i].time.year<<setw(8)<<cd[i].time.month<<setw(8)<<cd[i].time.day<<setw(8)<<cd[i].name<<setw(8)<<fabs(cd[i].money)<<setw(22)<<cd[i].remarks<<endl;
+   }
+         else
+   {
+   cout<<i<<setw(10)<<cd[i].time.year<<setw(8)<<cd[i].time.month<<setw(8)<<cd[i].time.day<<setw(8)<<cd[i].name<<setw(8)<<fabs(cd[i].money)<<endl;
+   }
+  }
+  else
+  {
+   if(cd[i].a=='y')
+   {
+       cout<<i<<setw(10)<<cd[i].time.year<<setw(8)<<cd[i].time.month<<setw(8)<<cd[i].time.day<<setw(8)<<cd[i].name<<"       -"<<fabs(cd[i].money)<<setw(22)<<cd[i].remarks<<endl;
+   }
+         else
+   {
+   cout<<i<<setw(10)<<cd[i].time.year<<setw(8)<<cd[i].time.month<<setw(8)<<cd[i].time.day<<setw(8)<<cd[i].name<<"       -"<<fabs(cd[i].money)<<endl;
+   }
+  }
+   sign++;
+   array[j]=i;
+   j++;
+  }
+ }
+ if(sign==0)
+ {
+  cout<<"此日无收支。"<<endl;
+  return -1;
+ }
+ if(array[1]!=0)
+ {
+        cout<<"有以上几个相同内容 请选择序号："<<endl;
+  for(i=0;array[i]!=0;i++)
+  {cout<<array[i]<<endl;}
+   cin>>array[0];
+  
+ }
+ return array[0];
+}
+//按名称查找帐务信息
+int seek_c(account cd[],char na[], int n)
+{
+ int i,j=0;
+ int array[100]={0};
+ int sign=0;
+     cout<<"序号"<<setw(5)<<"年"<<setw(10)<<"月"<<setw(8)<<"日"<<setw(8)<<"名称"<<setw(24)<<"收入（正）/支出（负)"<<setw(6)<<"备注"<<endl;
+ for(i=0;i<n;i++)
+ {
+  if(!strcmp(na,cd[i].name))
+  {
+   if(cd[i].type==1)
+  { if(cd[i].a=='y')
+   {
+       cout<<i<<setw(10)<<cd[i].time.year<<setw(8)<<cd[i].time.month<<setw(8)<<cd[i].time.day<<setw(8)<<cd[i].name<<setw(8)<<fabs(cd[i].money)<<setw(22)<<cd[i].remarks<<endl;
+   }
+         else
+   {
+   cout<<i<<setw(10)<<cd[i].time.year<<setw(8)<<cd[i].time.month<<setw(8)<<cd[i].time.day<<setw(8)<<cd[i].name<<setw(8)<<fabs(cd[i].money)<<endl;
+   }
+  }
+  else
+  {
+   if(cd[i].a=='y')
+   {
+       cout<<i<<setw(10)<<cd[i].time.year<<setw(8)<<cd[i].time.month<<setw(8)<<cd[i].time.day<<setw(8)<<cd[i].name<<"       -"<<fabs(cd[i].money)<<setw(22)<<cd[i].remarks<<endl;
+   }
+         else
+   {
+   cout<<i<<setw(10)<<cd[i].time.year<<setw(8)<<cd[i].time.month<<setw(8)<<cd[i].time.day<<setw(8)<<cd[i].name<<"       -"<<fabs(cd[i].money)<<endl;
+   }
+  }
+   sign++;
+   array[j]=i;
+   j++;
+  }
+ }
+ if(sign==0)
+ {
+  cout<<"无此类收支。"<<endl;
+  return -1;
+ }
+    if(array[1]!=0)
+ {
+        cout<<"有以上几个相同内容 请选择序号："<<endl;
+  for(i=0;array[i]!=0;i++)
+  {cout<<array[i]<<endl;}
+   cin>>array[0];
+  
+ }
+ return array[0];
+}
+//按金额查找帐务信息
+int seek_d(account cd[],long double no, int a,int n)
+{
+ int i,j=0;
+ int array[100]={0};
+ int sign=0;
+  cout<<"序号"<<setw(5)<<"年"<<setw(10)<<"月"<<setw(8)<<"日"<<setw(8)<<"名称"<<setw(24)<<"收入（正）/支出（负)"<<setw(6)<<"备注"<<endl;
+ for(i=0;i<n;i++)
+ { if(a==2)
+ {cd[i].money=-cd[i].money;}  
+ }
+ for(i=0;i<n;i++)
+ { if(no==cd[i].money)
+  {
+   if(cd[i].type==1)
+  { if(cd[i].a=='y')
+   {
+       cout<<i<<setw(10)<<cd[i].time.year<<setw(8)<<cd[i].time.month<<setw(8)<<cd[i].time.day<<setw(8)<<cd[i].name<<setw(8)<<fabs(cd[i].money)<<setw(22)<<cd[i].remarks<<endl;
+   }
+         else
+   {
+   cout<<i<<setw(10)<<cd[i].time.year<<setw(8)<<cd[i].time.month<<setw(8)<<cd[i].time.day<<setw(8)<<cd[i].name<<setw(8)<<fabs(cd[i].money)<<endl;
+   }
+  }
+  else
+  {
+   if(cd[i].a=='y')
+   {
+       cout<<i<<setw(10)<<cd[i].time.year<<setw(8)<<cd[i].time.month<<setw(8)<<cd[i].time.day<<setw(8)<<cd[i].name<<"       -"<<fabs(cd[i].money)<<setw(22)<<cd[i].remarks<<endl;
+   }
+         else
+   {
+   cout<<i<<setw(10)<<cd[i].time.year<<setw(8)<<cd[i].time.month<<setw(8)<<cd[i].time.day<<setw(8)<<cd[i].name<<"       -"<<fabs(cd[i].money)<<endl;
+   }
+  }
+   sign++;
+   array[j]=i;
+   j++;
+  }
+ }
+ if(sign==0)
+ {
+  cout<<"无此金额收支。"<<endl;
+  return -1;
+ }
+ if(array[1]!=0)
+ {
+        cout<<"有以上几个相同内容 请选择序号："<<endl;
+  for(i=0;array[i]!=0;i++)
+  {cout<<array[i]<<endl;}
+   cin>>array[0];
+  
+ }
+ return array[0];
+
+}
+//按序号删除序号为no的帐务信息
+int dela(account cd[],int no, int n)
+{
+ if(no>=n||no<0)
+ {cout<<"序号有误"<<endl;}
+ else if(no<n-1)
+ {for(int i=no;i<n-1;i++)
+   cd[i]=cd[i+1];
+ }
+ n--;
+ return n;
+}
+//按日期删除序号为no的帐务信息
+int delb(account cd[],int x,int y,int z, int n)
+{
+ int i;
+ int sign=0;
+ for(i=0;i<n;i++)
+ {
+  if(cd[i].time.year==x && cd[i].time.month==y && cd[i].time.day==z)
+  {
+   
+   {for(int j=i;j<n-1;j++)
+      cd[j]=cd[j+1];
+   }
+   sign=1;
+   n--;
+   i--;
+  }
+ }
+ if(sign==0)
+ {
+  cout<<"此日无收支。"<<endl;
+ }
+
+         return n;
+}
+//按名称删除序号为no的帐务信息
+int delc(account cd[],char na[], int n)
+{
+ int i;
+ int sign=0;
+ for(i=0;i<n;i++)
+ {
+  if(!strcmp(na,cd[i].name))
+  {
+   {for(int j=i;j<n-1;j++)
+      cd[j]=cd[j+1];
+   }
+   sign=1;
+   n--;
+   i--;
+  }
+ }
+ if(sign==0)
+ {
+  cout<<"无此类收支。"<<endl;
+ }
+
+         return n;
+}
+//按序号新增序号为no的帐务信息
+int ins(account cd[],int no, int n)
+{
+ if(no>n||no<0)
+ {
+  cout<<"序号有误"<<endl;
+     return n;
+ }
+ for(int i=n;i>no;i--)
+ {  cd[i]=cd[i-1];}
+   add(cd, no, n);
+ 
+ ++n;
+ return n;
+}
+//按序号修改序号为no的帐务信息
+void mod1(account cd[],int no, int n)
+{
+ if(no>=n||no<0)
+ {cout<<"序号有误"<<endl;}
+ if(no<n && no>=0 )
+ { 
+        add( cd, no, n);
+ }
+}
+//打印n个帐务信息
+void print(account cd[],int n)
+{
+ int i;
+  cout<<"序号"<<setw(5)<<"年"<<setw(10)<<"月"<<setw(8)<<"日"<<setw(8)<<"名称"<<setw(24)<<"收入（正）/支出（负)"<<setw(7)<<"备注"<<endl;
+ for(i=0;i<n;i++)
+ {
+  if(cd[i].type==1)
+  { if(cd[i].a=='y')
+   {
+       cout<<i<<setw(10)<<cd[i].time.year<<setw(8)<<cd[i].time.month<<setw(8)<<cd[i].time.day<<setw(8)<<cd[i].name<<setw(8)<<fabs(cd[i].money)<<setw(22)<<cd[i].remarks<<endl;
+   }
+         else
+   {
+   cout<<i<<setw(10)<<cd[i].time.year<<setw(8)<<cd[i].time.month<<setw(8)<<cd[i].time.day<<setw(8)<<cd[i].name<<setw(8)<<fabs(cd[i].money)<<endl;
+   }
+  }
+  else
+  {
+   if(cd[i].a=='y')
+   {
+       cout<<i<<setw(10)<<cd[i].time.year<<setw(8)<<cd[i].time.month<<setw(8)<<cd[i].time.day<<setw(8)<<cd[i].name<<"       -"<<fabs(cd[i].money)<<setw(22)<<cd[i].remarks<<endl;
+   }
+         else
+   {
+   cout<<i<<setw(10)<<cd[i].time.year<<setw(8)<<cd[i].time.month<<setw(8)<<cd[i].time.day<<setw(8)<<cd[i].name<<"       -"<<fabs(cd[i].money)<<endl;
+   }
+  }
+ }
+}
+ //按日期打印帐务统计信息
+void printall(account cd[],int X,int Y,int Z,int x,int y,int z,int n)
+{
+ int i;
+ long double a1,a2,all=0;
+ a1=X*10000+Y*100+Z;
+    a2=x*10000+y*100+z;
+ for(i=0;i<n;i++)
+ { 
+  if(cd[i].all_time<a2 && cd[i].all_time>a1)
+  {
+   if(cd[i].a==2)
+    cd[i].money=-cd[i].money;
+   all+=cd[i].money;
+  }
+ }
+ cout<<"收支总额为："<<endl;
+ cout<<all<<endl;
+}
+//把帐务信息存入文件中
+int getin(account cd[], int n)
+{
+ int i;
+ char name1[20];
+ cout<<"请输入要保存的根目录："<<endl;  
+ cin>>name1;
+ ofstream out(name1);
+ if(!out)
+ { 
+   cout<<"open output file:"<<name1<<" error"<<endl;
+   exit(1);
+ }
+ for(i=0;i<n;i++)
+  out.write((char *)&cd[i],sizeof(account)); //实在参数自己填写,此处可以用循环一次写入一条记录
+ out.close( );
+ return 1;               
+}
+//从文件中读取帐务信息
+int ReadBiFile(char *filename, account cd[])
+{
+ ifstream in(filename);
+ if(!in)
+ { 
+   cout<<"open input file:"<<filename<<" error"<<endl;
+   exit(1);
+ }
+ int i=0;
+ in.read((char *)&cd[i],sizeof(account));
+ //if(in.eof( ))
+ // i++;
+ while (!in.eof( ))
+ {  
+  i++;
+  in.read((char *)&cd[i],sizeof(account));
+ }
+ in.close( );

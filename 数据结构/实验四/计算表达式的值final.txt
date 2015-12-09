@@ -1,0 +1,176 @@
+#include <iostream>
+using namespace std;
+#define STACK_MAX 20
+struct OPND
+{
+	char *p;
+	int OPND_TOP;
+};
+struct OPTR
+{
+	char *q;
+	int OPTR_TOP;
+};
+
+void init(OPND & a,OPTR & b)
+{
+	a.p=new char [STACK_MAX];
+	a.OPND_TOP=0;
+	b.q=new char [STACK_MAX];
+	b.OPTR_TOP=0;
+}
+void pushD(OPND & a,int c)
+{
+	a.OPND_TOP++;
+	a.p[a.OPND_TOP]=c;
+}
+void pushR(OPTR & b,int c)
+{
+	b.OPTR_TOP++;
+	b.q[b.OPTR_TOP]=c;
+}
+char precede(char top,char c)
+{
+	int l=0,k=0;
+	char a[7][7]=
+	{
+	{'>','>','<','<','<','>','>'},
+	{'>','>','<','<','<','>','>'},
+	{'>','>','>','>','<','>','>'},
+	{'>','>','>','>','<','>','>'},
+	{'<','<','<','<','<','=',' '},
+	{'>','>','>','>',' ','>','>'},
+	{'<','<','<','<','<',' ','='}
+	};
+	char b[7]={'+','-','*','/','(',')','#'};
+	for(int i=0;i<7;i++)
+	{
+		l=i;
+		if(c==b[i])
+		{
+			break;
+		}
+	}
+	for(int j=0;j<7;j++)
+	{
+		k=j;
+		if(top==b[j])
+		{
+			break;
+		}
+	}
+	char r;
+	r=a[k][l];
+	return r;
+}
+char popD(OPND & a)
+{
+	char r=a.p[a.OPND_TOP];
+	a.OPND_TOP--;
+	return r;
+}
+char popR(OPTR & b)
+{
+	char r=b.q[b.OPTR_TOP];
+	b.OPTR_TOP--;
+	return r;
+}
+char gettopR(OPTR & b)
+{
+	return b.q[b.OPTR_TOP];
+}
+char gettopD(OPND &a)
+{
+	return a.p[a.OPND_TOP];
+}
+int check(char c)
+{
+	if(c!='*'&&c!='/'&&c!='+'&&c!='-'&&c!='('&&c!=')'&&c!='#')
+	{
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+}
+char operate(char op1,char op,char op2)
+{
+	int p1,p2,p3;
+	p1=p2=p3=0;
+	p1=op1-'0';
+	p2=op2-'0';
+	char op3;
+	switch(op)
+	{
+	case'+':
+		p3=p1+p2;
+		break;
+	case'-':
+		p3=p2-p1;
+		break;
+	case'*':
+		p3=p1*p2;
+		break;
+	case'/':
+		p3=p2/p1;
+		break;
+	}
+	op3=p3+'0';
+	return op3;
+}
+char solution(OPND & a,OPTR & b,char s[20])
+{
+	char c,op,op1,op2,op3;
+	int i=0;
+	c=s[i];
+	while(c!='#'||gettopR(b)!='#')//不是算式头或者尾
+	{
+		if(!check(c))//如果不是运算符，数据入栈
+		{
+			pushD(a,c);
+			i++;
+			c=s[i];
+		}
+		else
+		{
+			switch(precede(gettopR(b),c))
+			{
+				case'<':
+					pushR(b,c);
+					i++;
+					c=s[i];
+					break;
+				case'=':
+					popR(b);
+					i++;
+					c=s[i];
+					break;
+				case'>':
+					op=popR(b);
+					op1=popD(a);
+					op2=popD(a);
+					op3=operate(op1,op,op2);
+					pushD(a,op3);
+					break;
+				default:
+					cout<<"没有这种情况!"<<endl;
+					break;
+			}
+		}
+	}
+	return gettopD(a);
+}
+void main()
+{
+	OPND a;OPTR b;int k=0;
+	init(a,b);
+	pushR(b,'#');
+	char s[20];
+	char c[2]={'#','\0'};
+	scanf("%s",s);
+	strcat(s,c);
+	printf("结果是%d",solution(a,b,s)-'0');
+	cout<<endl;
+	system("pause");
+}

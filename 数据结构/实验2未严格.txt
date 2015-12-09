@@ -1,0 +1,116 @@
+#include <stdio.h>
+#include <iostream>
+#include <malloc.h>
+#include <stdlib.h>
+
+using namespace std;
+
+#define maxsize 20
+
+typedef struct List
+{
+	int num;
+	List *next;
+	int size;
+};
+
+List *head=NULL;//定义了一个头节点的指针方便等会直接给头结点分配空间
+List *tail=NULL;//定义一个尾指针
+
+void init(List &L)
+{
+	List *q=NULL;
+	head=(List*)malloc(sizeof(List));
+	tail=(List*)malloc(sizeof(List));
+	head->next=tail;
+	tail->next=NULL;
+	q=head;
+	L.size=0;
+	int number=0;//记录用户输入的个数
+	cout<<"一一一一一一一一一一一一一一一一一一一一一一一一一一一一一"<<endl;
+	cout<<"请输入少于二十个的数据"<<endl;
+	while(1)
+	{
+		cout<<"请输入第"<<++number<<"个数"<<endl;
+		List *p=NULL;
+		p=(List*)malloc(sizeof(List));
+		cin>>p->num;
+		L.size=number;
+		q->next=p;
+		p->next=tail;
+		q=q->next;
+		cout<<"一一一一一一一一一一一一一一一一一一一一一一一一一一一一一"<<endl;
+		cout<<"请选择输入："<<endl;
+		cout<<"(0)退出输入"<<"(其他任意数字)继续输入"<<endl;
+		int t=0;
+		cin>>t;
+		if(0==t)
+			break;
+	}
+}
+void display()
+{
+	cout<<"表中数据如下:"<<endl;
+	List *p1=NULL;
+	p1=head->next;
+	cout<<"--------------------------------------"<<endl;
+	do
+	{
+		cout<<"|\t"<<p1->num<<"   ";
+		p1=p1->next;
+	}while(p1->next!=NULL);
+	cout<<"|"<<endl;
+	cout<<"--------------------------------------"<<endl;
+	cout<<endl;
+}
+
+int menu()
+{
+	cout<<"一一一一一一一一一一一一一一一一一一一"<<endl;
+	cout<<"请输入你的操作"<<endl;
+	cout<<"1.初始化单链表"<<endl;
+	cout<<"2.将单链表按数据大小排序"<<endl;
+	cout<<"3.从键盘输入一个数据到表中并保持原表有序"<<endl;
+	cout<<"4.删除表中第i个数据节点"<<endl;
+	cout<<"5.找出单链表中的最大值"<<endl;
+	cout<<"6.显示表中的数据"<<endl;
+	cout<<"一一一一一一一一一一一一一一一一一一一"<<endl;
+	int f=0;
+	cin>>f;
+	return f;
+}
+void delete1()
+{
+	List *l;
+	l=head->next;
+	int d=0;
+	cout<<"请输入你将要删除的节点的数据:"<<endl;
+	cin>>d;
+	while(l!=NULL&&l->next->num!=d)
+		l=l->next;
+	l->next=l->next->next;
+	cout<<"删除成功"<<endl;
+}
+void main()
+{
+	List L;
+	while(1)
+	{
+		int k=0;
+		k=menu();
+		switch(k)
+		{
+		case 1:
+			init(L);
+			break;
+		case 4:
+			delete1();
+			break;
+		case 6:
+			display();
+			break;
+		default:
+			cout<<"输入错误！请重新输入"<<endl;
+		}
+	}
+}

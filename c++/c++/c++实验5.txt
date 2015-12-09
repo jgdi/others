@@ -1,0 +1,121 @@
+#include <iostream>
+using namespace std;
+
+#define NAME_LEN 20
+class student
+{
+private:
+	char name[NAME_LEN];
+	float eng;
+	float highm;
+	float ave;
+public:
+	int init(student stu [30]);
+	void average(student stu [30],int number);
+	void sort(student stu [30]);
+	void encryption(student stu[30],int number);
+	void output(student stu[30],int number);
+};
+void student::encryption(student stu [30],int number)
+{
+	char enc[NAME_LEN]={'*','*','*'};
+	if(number>=6);
+	{
+		for(int i=6;i<number;i++)
+		{
+			strcpy(stu[i].name,enc);
+		}
+	}
+}
+void student::output(student stu [30],int number)
+{
+	float ce=0,cae=0,ch=0,cah=0;
+	cout<<"name"<<'\t'<<"Eng"<<'\t'<<"High"<<'\t'<<"average"<<endl;
+	for(int i=0;i<number;i++)
+	{
+		ce=ce+stu[i].eng;
+		cae=ce/number;
+		ch=ch+stu[i].highm;
+		cah=ch/number;
+		cout<<stu[i].name<<'\t';
+		cout<<stu[i].eng<<'\t';
+		cout<<stu[i].highm<<'\t';
+		cout<<stu[i].ave<<'\t';
+		cout<<endl;
+	}
+		cout<<"班级英语平均分为:"<<cae<<endl;
+		cout<<"班级高数平均分为:"<<cah<<endl;
+}
+void student::average(student stu [30],int number)
+{
+	for(int i=0;i<number;i++)
+	{
+		stu[i].ave=(stu[i].highm+stu[i].eng)/2;
+	}
+}
+void student::sort(student stu [30])
+{
+	char namee[NAME_LEN];
+	float enge;
+	float highme;
+	cout<<"Please choose you sort way"<<endl;
+	cout<<"(0)English  (1)Highmath	(2)Average"<<endl;
+	int k=0;
+	cin>>k;
+	if(k==0)
+	{
+		for(int i=0;i<30;i++)
+		{
+			for(int j=0;j<30-i-1;j++)
+			{
+				if(stu[j].eng<stu[j+1].eng)
+				{
+					strcpy(namee,stu[j].name);
+					strcpy(stu[j].name,stu[j+1].name);
+					strcpy(stu[j+1].name,namee);
+					enge=stu[j].eng;
+					stu[j].eng=stu[j+1].eng;
+					stu[j+1].eng=enge;
+					highme=stu[j].highm;
+					stu[j].highm=stu[j+1].highm;
+					stu[j+1].highm=highme;
+				}
+			}
+		}
+	}
+	else if(k==1)
+	{
+
+	}
+	else
+	{
+		cout<<"Please check your input"<<endl;
+	}
+}
+int student::init(student stu [30])
+{
+	int i=0,num=0;
+	cout<<"请输入要录入学生个数"<<endl;
+	cin>>num;
+	for(i;i<num;i++)
+	{
+		cout<<"please input name"<<endl;
+		cin>>stu[i].name;
+		cout<<"please input English Score"<<endl;
+		cin>>stu[i].eng;
+		cout<<"Please input Highmath Score"<<endl;
+		cin>>stu[i].highm;
+	}
+	return num;
+}
+int main()
+{
+	int number=0;
+	student stu[30];
+	number=stu[30].init(stu);
+	stu[30].average(stu,number);
+	stu[30].sort(stu);
+	stu[30].encryption(stu,number);
+	stu[30].output(stu,number);
+	system("pause");
+}

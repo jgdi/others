@@ -1,0 +1,157 @@
+#include <stdio.h>
+#include <malloc.h>
+#include <stdlib.h>
+#include <string>
+#include <conio.h>
+
+using namespace std;
+
+#define NAME_LEN 20
+#define SEX_LEN 10
+#define ID_LEN 10
+
+struct student
+{
+	char num[ID_LEN];//学号
+	char name[NAME_LEN];
+	char sex[SEX_LEN];
+};
+struct List
+{
+	struct student stu;
+	struct List *next;
+};
+
+List *head=NULL;//定义了一个头节点的指针方便等会直接给头结点分配空间
+List *tail=NULL;//定义一个尾指针
+void init()
+{
+	head=(List *)malloc(sizeof(List));
+	tail=(List *)malloc(sizeof(List));
+	List *p=NULL;//指向将要新加入的节点
+	List *q=NULL;//指向尾节点的前一个节点
+	head->next=tail;
+	tail->next=NULL;
+	q=head;
+	int number=0;
+	while(1)
+	{
+		printf("--------------------------------------------------\n");
+		printf("请输入第%d个人的信息\n",++number);
+		p=(List *)malloc(sizeof(List));
+		printf("请输入学号:\n");
+		scanf("%s",p->stu.num);
+		printf("请输入姓名:\n");
+		scanf("%s",p->stu.name);
+		printf("请输入性别:\n");
+		scanf("%s",p->stu.sex);
+		printf("--------------------------------------------------\n");
+		q->next=p;
+		p->next=tail;
+		tail->next=NULL;
+		q=q->next;
+		List *p=NULL;
+		printf("键入除零任意键继续输入,按0退出输入并显示当前表中数据\n");
+		int n;
+		scanf("%d",&n);
+		if(n==0)
+			return;
+	}
+}
+void display()
+{
+	List *d;
+	d=head->next;
+	printf("表中数据如下:\n");
+	printf("一一一一一一一一一一一一一一一一一一一一一一一一一一\n");
+	do
+	{
+		printf("|\t");
+		printf("%s\t",d->stu.num);
+		printf("|\t");
+		printf("%s\t",d->stu.name);
+		printf("|\t");
+		printf("%s\t",d->stu.sex);
+		printf("|\t");
+		printf("\n");
+		printf("一一一一一一一一一一一一一一一一一一一一一一一一一一\n");
+		d=d->next;
+	}while(d->next!=NULL);
+
+}
+
+void delete1()
+{
+	printf("请输入你要删除的学生的学号:\n");
+	char d[10];
+	scanf("%s",&d);
+	List *k;
+	k=head;
+	while(k->next!=NULL&&strcmp(k->next->stu.num,d)!=0)
+		k=k->next;
+	k->next=k->next->next;
+	printf("删除成功！！！");
+}
+
+int menu()
+{
+	printf("                             单链表学生信息管理\n");
+	printf("请输入你将要进行的操作:\n\n");
+	printf("1.往单链表中加入数据\n");
+	printf("2.查找链表中保存的数据\n");
+	printf("3.删除指定序号学生数据\n");
+	printf("4.显示表中的数据\n");
+	int s=0;
+	scanf("%d",&s);
+	return s;
+
+}
+void find()
+{
+	printf("请输入你要查找的学生的学号");
+	char f[10];
+	scanf("%s",&f);
+	List *p1;
+	p1=head;
+	printf("表中数据如下:\n");
+	while(p1!=NULL&&strcmp(p1->stu.num,f)!=0)
+		p1=p1->next;
+	printf("-------------------------------------------------\n");
+	printf("|\t");
+	printf("%s\t",p1->stu.num);
+	printf("|\t");
+	printf("%s\t",p1->stu.name);
+	printf("|\t");
+	printf("%s\t",p1->stu.sex);
+	printf("|\t");
+	printf("\n");
+	printf("-------------------------------------------------\n");
+}
+void main()
+{
+	while(1)
+	{
+		int k=0;
+		k=menu();
+		switch(k)
+		{
+			case 1:
+				init();
+				display();
+				break;
+			case 2:
+				find();
+				break;
+			case 3:
+				delete1();
+				break;
+			case 4:
+				display();
+				break;
+			default:
+				break;
+		}
+	}
+}
+
+

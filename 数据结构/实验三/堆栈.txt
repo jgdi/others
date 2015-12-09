@@ -1,0 +1,52 @@
+//Ë³Ðò½á¹¹
+#include <iostream>
+using namespace std;
+typedef int elemtype;
+struct stack
+{
+	elemtype *stacks;
+	int top;
+};
+void init(stack & s)
+{
+	s.stacks=new int[6];
+	s.top=-1;
+}
+void push(stack & s,int a[6])
+{
+	for(int i=0;i<6;i++)
+	{
+		s.stacks[i]=a[i];
+		s.top++;
+	}
+}
+void pop(stack & s)
+{
+	int temp;
+	if(s.top==0)
+	{
+		cout<<"Õ»¿Õ"<<endl;
+	}
+	else
+	{
+		for(int i=0;i<6;i++)
+		{
+			temp=s.stacks[s.top];
+			s.top--;
+			cout<<temp<<endl;
+		}
+	}
+}
+void main()
+{
+	int a[6];
+	for(int i=0;i<6;i++)
+	{
+		cin>>a[i];
+	}
+	stack s;
+	init(s);
+	push(s,a);
+	pop(s);
+}
+

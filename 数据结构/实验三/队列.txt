@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+
+#define MAX_SIZE 6
+struct L
+{
+	int *base;
+	int front;
+	int rear;
+};
+
+void init(L &List)
+{
+	List.base=new int [MAX_SIZE];
+	List.front=List.rear=0;
+}
+
+void in(L & List,int a[6])
+{
+	for(int i=0;i<6;i++)
+	{
+		List.base[List.rear]=a[i];
+		List.rear=(List.rear+1)%MAX_SIZE;
+	}
+}
+void outt(L & List,int o[6])
+{
+	{
+		for(int j=0;j<6;j++)
+		{
+			o[j]=List.base[List.front];
+			List.front=(List.front+1)%MAX_SIZE;
+		}
+	}
+	for(int f=0;f<6;f++)
+	{
+		cout<<o[f]<<" ";
+	}
+}
+void main()
+{
+	L List;
+	init(List);
+	int a[MAX_SIZE];
+	for(int k=0;k<6;k++)
+		cin>>a[k];
+	in(List,a);
+	outt(List,a);
+	system("pause");
+}

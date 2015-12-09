@@ -1,0 +1,14 @@
+#include"stdio.h"
+#include"stdlib.h"
+void fun(int n)
+{
+	printf("%d",n);
+	fun(n);
+}
+void main()
+{
+	int i = 5;
+	fun(i);
+	printf("fun is over");
+	system("pause");
+}

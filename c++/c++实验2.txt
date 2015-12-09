@@ -1,0 +1,134 @@
+//c++实验2
+
+
+//不带(带)默认参数的函数实现2个或者三个数中的最大值；
+//
+//#include <iostream>
+//#include <string>
+//using namespace std; 
+
+//int maxn(int x,int y,int z=4)//带默认参数
+//{
+//	if(y>x)x=y;
+//	if(z>x)x=z;
+//	return x;
+//}
+//void sort(int *a,int *b)
+//{	
+//	int temp;
+//	if(*a<*b){
+//		temp=*a;
+//		*a=*b;
+//		*b=temp;
+//	}
+//	else{
+//		return;
+//	}
+//}
+//void sort1(int &a,int &b)
+//{
+//	int temp=0;
+//	if(a<b){
+//		temp=a;
+//		a=b;
+//		b=temp;
+//	}
+//	else{
+//		return;
+//	}
+//}
+//void sorts(string str[5])
+//{
+//	string temp;
+//	for(int i=0;i<5;i++)
+//		for(int j=0;j<4-i;j++)
+//			if(str[j]>str[j+1])
+//			{
+//				temp=str[j];
+//			}
+//}
+//int main()
+//{
+//	string a[5]={"dsf","kghk","jg","hgf","dgs"};
+//	sorts(a);
+//	for(int i=0;i<5;i++)
+//	{
+//		cout<<a[i]<<endl;
+//	}
+//}
+////#include <iostream>
+//using namespace std;
+//template<typename T>
+//T max(T x,T y,T z)
+//{
+//	T temp;
+//	T temp2;
+//	if(x>y){
+//		temp=x;
+//		x=y;
+//		y=temp;
+//	}
+//	if(y>z){
+//		temp2=y;
+//		y=z;
+//		z=temp;
+//	}
+//	return 0;
+//}
+//void max(int x,int y,int z)
+//{
+//	int temp;
+//	int temp2;
+//	if(x>y){
+//		temp=x;
+//		x=y;
+//		y=temp;
+//	}
+//	if(y>z){
+//		temp2=y;
+//		y=z;
+//		z=temp;
+//	}
+//}
+//void max(float x,float y,float z)
+//{
+//	float temp;
+//	float temp2;
+//	if(x>y){
+//		temp=x;
+//		x=y;
+//		y=temp;
+//	}
+//	if(y>z){
+//		temp2=y;
+//		y=z;
+//		z=temp;
+//	}
+//}
+//void max(double x,double y,double z)
+//{
+//	double temp;
+//	double temp2;
+//	if(x>y){
+//		temp=x;
+//		x=y;
+//		y=temp;
+//	}
+//	if(y>z){
+//		temp2=y;
+//		y=z;
+//		z=temp;
+//	}
+//}
+//int main()
+//{
+//	int a=8,b=7,c=6;
+//	float d=8,e=7,f=6;
+//	double g=8,h=7,i=6;
+//	max(a,b,c);
+//	max(d,e,f);
+//	max(g,h,i);
+//	cout<<a<<b<<c<<endl;
+//	cout<<d<<e<<f<<endl;
+//	cout<<g<<h<<i<<endl;
+//}

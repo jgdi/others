@@ -1,0 +1,162 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+#define NAME_LEN 20
+#define TYPE_LEN 20
+#define FORGET_LEN 20
+#define DATE_LEN 20
+#define MONEY_LEN 20
+
+class manage
+{
+public:
+	void add(manage m[30]);
+	void find();
+	void change();
+	void delete1();
+	void sort();
+	void display(manage m[30],manage c[30]);
+	void tongji();
+	void docin(manage m[30]);
+	void docout(manage m[30],manage c[30]);
+private:
+	char date[DATE_LEN];
+	char name[NAME_LEN];
+	char type[TYPE_LEN];
+	char moneyc[MONEY_LEN];
+	char forget[FORGET_LEN];
+	int number;
+};
+void manage::docin(manage m[30])
+{
+	FILE* fp;
+	manage *p;
+	if((fp=fopen("F://1.dat","a+"))==NULL)
+	{
+		printf("error!");
+	}
+	for(int i=0;i<m[0].number;i++)
+	{
+		fwrite(&m[i],sizeof(m[i]),1,fp);
+	}
+	fclose(fp);
+	/*c++写入文件为二进制操作
+	ofstream outfile("F://1.dat",ios::binary);//以二进制的形式存放在磁盘文件中
+	if(!outfile)
+	{
+		cerr<<"open error!"<<endl;
+		abort();
+	}
+	for(int i=0;i<1;i++)
+	{
+		outfile.write((char*)&m[i],sizeof(m[i]));
+	}
+	outfile.close();
+	*/
+}
+void manage::docout(manage m[30],manage c[30])
+{
+	FILE *fp;
+	if((fp=fopen("F://1.dat","r"))==NULL)
+	{
+		printf("error!");
+	}
+	for(int i=0;(!feof(fp));i++)
+	{
+		fread(&m[i],sizeof(m[i]),1,fp);
+		strcpy(c[i].date,m[i].date);
+		strcpy(c[i].name,m[i].name);
+		strcpy(c[i].type,m[i].type);
+		strcpy(c[i].moneyc,m[i].moneyc);
+		strcpy(c[i].forget,m[i].forget);
+		c[0].number=i;
+	}
+	/*c++从文件中读出二进制文件操作
+	ifstream infile("F://1.dat",ios::binary);
+	if(!infile)
+	{
+		cerr<<"open error"<<endl;
+		abort();
+	}
+	for(int i=0;i<1;i++)
+	{
+		infile.read((char*)&m[i],sizeof(m[i]));
+	}
+	infile.close();
+	*/
+}
+void manage::display(manage m[30],manage c[30])
+{
+	cout<<"文件中的所有数据如下："<<endl;
+	cout<<"年月日"<<'\t'<<"名称"<<'\t'<<"类型"<<'\t'<<"收支金额"<<'\t'<<"备注"<<endl;
+	for(int i=0;i<c[0].number;i++)
+	{
+		cout<<c[i].date<<'\t';
+		cout<<c[i].name<<'\t';
+		cout<<c[i].type<<'\t';
+		cout<<c[i].moneyc<<'\t';
+		cout<<c[i].forget<<'\t';
+		cout<<endl;
+	}
+}
+void manage::add(manage m[30])
+{
+	cout<<"请输入你要加入的账目数量"<<endl;
+	cin>>m[0].number;
+	for(int i=0;i<m[0].number;i++)
+	{
+		cout<<"请输入要存储的第"<<i+1<<"个账单的年月日"<<endl;
+		cin>>m[i].date;
+		//m[i].date[DATE_LEN-1]='\0';
+		cout<<"请输入账目的名称"<<endl;
+		cin>>m[i].name;
+		//m[i].name[NAME_LEN-1]='\0';
+		cout<<"请输入账目的类型(收入/支出)"<<endl;
+		cin>>m[i].type;
+		//m[i].type[TYPE_LEN-1]='\0';
+		cout<<"请输入账目的收支金额"<<endl;
+		cin>>m[i].moneyc;
+		//m[i].moneyc[MONEY_LEN-1]='\0';
+		cout<<"请输入账目的备注(没有填写无)"<<endl;
+		cin>>m[i].forget;
+		//m[i].forget[FORGET_LEN-1]='\0';
+	}
+}
+int menu()
+{
+	cout<<"请输入你的选择"<<endl;
+	cout<<"1.新增账务明细"<<endl;
+	cout<<"2.输出所有账目"<<endl;
+	cout<<"0.退出账务系统"<<endl;
+	int r;
+	cin>>r;
+	return r;
+}
+int main()
+{
+	cout<<"                                个人账务数据管理"<<endl;
+	//整个过程中的账单数目
+	manage m[30];//输入的数组
+	manage c[30];//从文件中提取的数组
+	memset(m,0,sizeof(m));
+	memset(c,0,sizeof(c));
+	while(1)
+	{	
+		int k=menu();
+		switch(k)
+		{
+		case 1:
+			m[30].add(m);
+			m[30].docin(m);
+			break;
+		case 2:
+			m[30].docout(m,c);
+			m[30].display(m,c);
+			system("pause");
+		case 0:
+			exit(0);
+		}
+	}
+	return 0;
+}

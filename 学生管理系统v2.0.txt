@@ -1,0 +1,145 @@
+#include <iostream>
+#include <stdio.h>
+#include <malloc.h>
+#include <string>
+
+using namespace std;
+#define LIST_INIT_SIZE 20
+
+
+struct student
+{
+	int num;
+	char name[20];
+	float score;
+};
+struct List
+{
+	struct student *list;
+	int maxsize;
+	int size;
+};
+void init(List &L)
+{
+	L.maxsize=LIST_INIT_SIZE;
+	L.list= (student*)malloc(LIST_INIT_SIZE* sizeof (student));
+	L.size=20;
+	printf("请输入初始化数据的个数\n");
+	scanf_s("%d",&L.size);
+	printf("依次输入学号 姓名 分数\n");
+	for(int i=0;i<L.size;i++)
+	{
+		cin>>L.list[i].num;
+		cin>>L.list[i].name;
+		cin>>L.list[i].score;
+	}
+	printf("加入信息成功！！！\n\n");
+}
+void display(List &L)
+{
+	printf("\n\n表中数据如下\n");
+	for(int i=0;i<L.size;i++)
+	{
+		printf("%d\t",L.list[i].num);
+		cout<<L.list[i].name<<"\t";
+		printf("%5.2f",L.list[i].score);
+		printf("\n\n");
+	}
+}
+void find(List &L)
+{
+	int b=0;
+	printf("请输入你要查找的学号\n");
+	scanf_s("%d",&b);
+	printf("\n查找结果如下\n");
+	for(int i=0;i<L.size;i++)
+	{
+		if(L.list[i].num==b)
+		{
+			printf("%d",L.list[i].num);
+			printf("%s",L.list[i].name);
+			printf("%f",L.list[i].score);
+			printf("\n");
+		}
+	}
+}
+void delete1(List &L)
+{
+	printf("请输入你要删除的学号\n");
+	int d=0;
+	scanf("%d",&d);
+	for(int b=0;b<L.size;b++)
+	{
+		if(d==L.list[b].num)
+		{
+			for(int j=b;b<L.size;b++)
+			{
+				L.list[b]=L.list[b+1];
+			}
+		}
+	}
+	L.size--;
+	printf("\n\n删除成功！！！\n");
+}
+void sort(List &L)
+{
+	printf("降序结果如下n");
+	for(int i=0;i<L.size;i++)
+	{
+		for(int j=0;j<L.size-1-i;j++)
+		{
+			if(L.list[j].score<L.list[j+1].score)
+			{
+				struct student temp;
+				strcpy(temp.name,L.list[i].name);
+				temp.score=L.list[j].score;
+				temp.num=L.list[j].num;
+				strcpy(L.list[j].name,L.list[j+1].name);
+				L.list[j].num=L.list[j+1].num;
+				L.list[j].score=L.list[j+1].score;
+				L.list[j+1].num=temp.num;
+				strcpy(L.list[j+1].name,temp.name);
+				L.list[j+1].score=temp.score;
+			}
+		}
+	}
+	display(L);
+}
+int menu()
+{   printf("-------------------------------------------------------------------------\n");
+	printf("请输入你的操作\n");
+	printf("1.初始化信息到表中\n");
+	printf("2.显示该表\n");
+	printf("3.查找指定学号学生信息\n");
+	printf("4.删除制定学号的学生信息\n");
+	printf("5.将该数据表按成绩降序排列\n");
+	printf("-------------------------------------------------------------------------\n");
+	printf("\n");
+	int k;
+	scanf_s("%d",&k);
+	return k;
+}
+int main()
+{
+	printf("                                   学生信息管理\n");
+	List L;
+	int a=0;
+	while(1)
+	{
+		a=menu();
+		if(a==1)
+			init (L);
+		else if(a==2)
+			display(L);
+		else if(a==3) 
+			find(L);
+		else if(a==4)
+			delete1(L);
+		else if(a==5)
+			sort(L);
+		else
+			printf("输入错误!!!\n");
+	}
+}
+
+
