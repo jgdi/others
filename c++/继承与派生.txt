@@ -1,0 +1,209 @@
+#include <iostream>
+using namespace std;
+
+#define SEX_LEN 10
+#define NAME_LEN 10
+class employer
+{
+protected:
+	int number;
+	int age;
+	int money;
+	char name[NAME_LEN];	
+	char sex[SEX_LEN];
+public:
+	employer()
+	{
+		number=0;
+		age=0;
+		money=800;
+	}
+	void input()
+	{
+		cout<<"编号"<<endl;
+		cin>>number;
+		cout<<"年龄"<<endl;
+		cin>>age;
+		cout<<"性别"<<endl;
+		cin>>sex;
+		cout<<"姓名"<<endl;
+		cin>>name;
+	}
+	void output()
+	{
+		cout<<"编号:"<<number<<" 年龄"<<age<<" 姓名"<<name<<" 性别"<<sex;
+	}
+};
+class teacher:virtual public employer
+{
+protected:
+	int hour;
+public:
+	teacher():employer()
+	{
+		hour=30;
+	}
+	void input()
+	{
+		cout<<"时间";
+		cin>>hour;
+		employer::input();
+	}
+	void output()
+	{
+		employer::output();
+		cout<<"教师工资:"<<money+200+hour*30<<endl;
+	}
+};
+class labworker:public employer
+{
+protected:
+	int hour;
+public:
+	labworker():employer()
+	{
+		hour=0;
+	}
+	void input()
+	{
+		cout<<"值班时间";
+		cin>>hour;
+		employer::input();
+	}
+	void output()
+	{
+		employer::output();
+		cout<<"实验员工资:"<<money+150+hour*5<<endl;
+	}
+};
+class admin:virtual public employer
+{
+protected:
+	double addition;
+public:
+	admin():employer()
+	{
+		addition=200;
+	}
+	void input()
+	{
+		employer::input();
+	}
+	void output()
+	{
+		employer::output();
+		cout<<"行政人员工资"<<money+addition+100<<endl;
+	}
+};
+class double_shoulder:public teacher,public admin
+{
+protected:
+	int hour;
+public:
+	double_shoulder():employer(),teacher(),admin()
+	{
+	}
+	void input()
+	{
+		cout<<"请输入双肩挑时间"<<endl;
+		cin>>hour;
+		employer::input();
+	}
+	void output()
+	{
+		employer::output();
+		cout<<"双肩挑工资:"<<money+teacher::hour*30+addition;
+	}
+};
+void input_teacher(teacher *p,int count)
+{
+	for(int i=0;i<count;i++)
+	{
+		p[i].input();
+	}
+}
+void output_teacher(teacher *p,int count)
+{
+	for(int i=0;i<count;i++)
+	{
+		p[i].output();
+	}
+}
+void input_labworker(labworker *q,int count)
+{
+	for(int i=0;i<count;i++)
+	{
+		q[i].input();
+	}
+}
+void output_labworker(labworker *q,int count)
+{
+	for(int i=0;i<count;i++)
+	{
+		q[i].output();
+	}
+}
+void input_admin(admin *a,int count)
+{
+	for(int i=0;i<count;i++)
+	{
+		a[i].input();
+	}
+}
+void output_admin(admin *a,int count)
+{
+	for(int i=0;i<count;i++)
+	{
+		a[i].output();
+	}
+}
+
+
+void input_doubleshoulder(double_shoulder *d,int count)
+{
+	for(int i=0;i<count;i++)
+	{
+		d[i].input();
+	}
+}
+void output_doubleshoulder(double_shoulder *d,int count)
+{
+	for(int i=0;i<count;i++)
+	{
+		d[i].output();
+	}
+}
+int main()
+{
+	int count=1;int choice=0;
+	cout<<"1.老师资料 2.实验员资料 3.行政人员资料 4.双肩挑"<<endl;
+	cin>>choice;
+	teacher *p;
+	p=new teacher[count];
+
+	labworker *q;
+	q=new labworker[count];
+	admin *a;
+	a=new admin[count];
+	double_shoulder *d;
+	d=new double_shoulder[count];
+	switch(choice)
+	{
+	case 1:
+		input_teacher(p,count);
+		output_teacher(p,count);
+		break;
+	case 2:
+		input_labworker(q,count);
+		output_labworker(q,count);
+		break;
+	case 3:
+		input_admin(a,count);
+		output_admin(a,count);
+		break;
+	case 4:
+		input_doubleshoulder(d,count);
+		output_doubleshoulder(d,count);
+		break;
+	}
+}
